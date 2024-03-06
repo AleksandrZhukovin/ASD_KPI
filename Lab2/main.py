@@ -68,6 +68,7 @@ def shell_sort(arr):
         i += 1
     steps.reverse()
     steps.append(1)
+    print(steps)
     i = 0
     el = 0
     for step in steps:
@@ -78,7 +79,7 @@ def shell_sort(arr):
             for c in range(len(arr[::step])):
                 move = el
                 while arr[el] < arr[move - step]:
-                    compares += 2
+                    compares += 1
                     if move - step <= start:
                         move = start
                         break
@@ -97,33 +98,17 @@ test_100 = [random.randint(0, 100) for _ in range(100)]
 test_1000 = [random.randint(0, 1000) for _ in range(1000)]
 test_10000 = [random.randint(0, 10000) for _ in range(10000)]
 
-step1 = [41, 19, 5, 1]
-step2 = [209, 109, 41, 19, 5, 1]
-step3 = [3905, 2161, 929, 505, 209, 109, 41, 19, 5, 1]
-c_100 = 0
-m_100 = 0
-c_1000 = 0
-m_1000 = 0
-c_10000 = 0
-m_10000 = 0
 
-for i in step1:
-    c_100 += (2 + i) * (i - 1) / 2
-    m_100 += (i - 1) * i / 4
-c_100 /= len(step1)
-m_100 /= len(step1)
+c_100 = 100 ** (7/6)
+m_100 = 100 ** (7/6)
 
-for i in step2:
-    c_1000 += (2 + i) * (i - 1) / 2
-    m_1000 += (i - 1) * i / 4
-c_1000 /= len(step2)
-m_1000 /= len(step2)
 
-for i in step3:
-    c_10000 += (2 + i) * (i - 1) / 2
-    m_10000 += (i - 1) * i / 4
-c_10000 /= len(step3)
-m_10000 /= len(step3)
+c_1000 = 1000 ** (7/6)
+m_1000 = 1000 ** (7/6)
+
+
+c_10000 = 10000 ** (7/6)
+m_10000 = 10000 ** (7/6)
 
 print('Unsorted 100 elements array', test_100)
 print('Unsorted 1000 elements array', test_1000)
@@ -142,12 +127,15 @@ res_2 = shell_sort(test_10000)
 time_10000 = timeit.default_timer() - start
 
 print(f'C_exp/C_theor: {c_100 / res[0]}. M_exp/M_theor: {m_100 / res[1]}')
+print(f'C_theor: {c_100}. M_theor: {m_100}')
 print(f'Sorted: {test_100}\nCompares: {res[0]}\nMoves: {res[1]}\nTime: {time_100}\n')
 
 print(f'C_exp/C_theor: {c_1000 / res_1[0]}. M_exp/M_theor: {m_1000 / res_1[1]}')
+print(f'C_theor: {c_1000}. M_theor: {m_1000}')
 print(f'Sorted: {test_1000}\nCompares: {res_1[0]}\nMoves: {res_1[1]}\nTime: {time_1000}\n')
 
 print(f'C_exp/C_theor: {c_10000 / res_2[0]}. M_exp/M_theor: {m_10000 / res_2[1]}')
+print(f'C_theor: {c_10000}. M_theor: {m_10000}')
 print(f'Sorted: {test_10000}\nCompares: {res_2[0]}\nMoves: {res_2[1]}\nTime: {time_10000}\n')
 
 
