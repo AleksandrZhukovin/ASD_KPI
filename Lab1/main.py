@@ -99,6 +99,26 @@ def hanoi_tower(n, count=0, moves=0, **kwargs):
         return hanoi_tower(n, count+1, moves, **kwargs)
 
 
-print(hanoi_tower(4, a=['4', '3', '2', '1'], b=[], c=[]))
+# print(hanoi_tower(4, a=['4', '3', '2', '1'], b=[], c=[]))
 
+def new_hanoi(n, **kwargs):
+    if n == 1:
+        return kwargs
+    kwargs['c'].append(kwargs['a'].pop(0))
+    new_hanoi(n-1, **kwargs)
+    print(kwargs)
+
+
+def anoi(n, source, target, auxiliary):
+    if n == 1:
+        print("Move disk 1 from", source, "to", target)
+        return
+    anoi(n-1, source, auxiliary, target)
+    print("Move disk", n, "from", source, "to", target)
+    anoi(n-1, auxiliary, target, source)
+
+
+# Example usage:
+num_disks = 5
+anoi(num_disks, 'A', 'C', 'B')
 
