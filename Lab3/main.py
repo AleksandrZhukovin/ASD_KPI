@@ -1,6 +1,9 @@
 import timeit
 
 
+__all__ = ('Element', 'List', )
+
+
 """Клас елементу"""
 class Element:
     def __init__(self, data, key: int, next=None, prev=None):
@@ -101,40 +104,45 @@ class List:
         self.current = self.current.next
         return res
 
+if __name__ == '__main__':
+    l = List()
 
-l = List()
+    t = input('Enter text: ')
 
-t = input('Enter text: ')
+    if t[-1] != '.':
+        raise ValueError('"." symbol is required!')
 
-if t[-1] != '.':
-    raise ValueError('"." symbol is required!')
+    start = timeit.default_timer()
+    l.split(t)
 
-start = timeit.default_timer()
-l.split(t)
+    l.tail.prev.data = l.tail.data
 
-for i in l:
-    if not len(i.data) % 2:
-        print((i.data + i.data[-1]).replace('o', ''))
-end_list = timeit.default_timer() - start
+    for i in l:
+        print(i)
+
+    for i in l:
+        if not len(i.data) % 2:
+            print((i.data + i.data[-1]).replace('o', ''))
+    end_list = timeit.default_timer() - start
 
 
-start = timeit.default_timer()
-words = []
+    start = timeit.default_timer()
+    words = []
 
-word = ''
-for char in t:
-    if char == '.':
-        words.append(word)
-        break
-    if char != ' ':
-        word += char
-    else:
-        words.append(word)
-        word = ''
+    word = ''
+    for char in t:
+        if char == '.':
+            words.append(word)
+            break
+        if char != ' ':
+            word += char
+        else:
+            words.append(word)
+            word = ''
 
-for word in words:
-    if not len(word) % 2:
-        print((word + word[-1]).replace('o', ''))
-end_array = timeit.default_timer() - start
+    for word in words:
+        if not len(word) % 2:
+            print((word + word[-1]).replace('o', ''))
+    end_array = timeit.default_timer() - start
 
-print(end_list, end_array)
+    print(end_list, end_array)
