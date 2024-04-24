@@ -1,5 +1,7 @@
 from Lab3 import *
 
+import queue as qu
+
 
 class Queue(List):
     def __init__(self, size: int) -> None:
@@ -23,36 +25,75 @@ class Queue(List):
 
 
 if __name__ == '__main__':
-    queue = []
-    size = 0
+    size = 10
+    len_ = 0
     head = 0
     tail = 0
+    queue = ['*' for _ in range(size)]
 
 
     def add(data):
-        global queue, size, tail, head
-        if len(queue) < size:
-            queue.insert(0, data)
-            tail = 0
-            head = len(queue) - 1
+        global queue, size, tail, head, len_
+        if len_ < size:
+            if tail >= len_:
+                queue[tail % size] = data
+                tail += 1
+                len_ += 1
+            else:
+                queue[tail] = data
+                tail += 1
+                len_ += 1
 
 
     def pop():
-        global queue, size, tail, head
+        global queue, size, tail, head, len_
         if len(queue):
-            return queue.pop(0)
+            el = queue[head]
+            queue[head] = '*'
+            head += 1
+            len_ -= 1
+            return el
+
+    for i in range(10):
+        add(i)
+
+    print(queue)
+
+    pop()
+    pop()
+    pop()
+    print(queue)
+    add(11)
+    add(12)
+    print(queue)
 
 
-    a = Queue(10)
 
-    for i in range(1):
-        a.add(i)
+    # a = Queue(10)
+    #
+    # for i in range(1):
+    #     a.add(i)
+    #
+    # for i in a:
+    #     print(i)
+    #
+    # a.pop()
+    # a.pop()
+    #
+    # for i in a:
+    #     print(i)
 
-    for i in a:
-        print(i)
+    q = qu.Queue(5)
 
-    a.pop()
-    a.pop()
+    for i in range(5):
+        q.put(i)
 
-    for i in a:
-        print(i)
+    print('size', q.qsize())
+
+    for i in range(q.qsize()):
+        print(q.get())
+
+    q.empty()
+
+    for i in range(q.qsize()):
+        print(q.get())
