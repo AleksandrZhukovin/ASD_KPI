@@ -1,0 +1,1 @@
+This wow is test text to check how binary tree works
